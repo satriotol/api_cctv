@@ -9,5 +9,7 @@ class Cctv extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'relation_id','name','location','liveViewUrl','isPing','isLogin','isLiveView','isOpenVpn','rt','rw','kelurahan','kecamatan'
+    ];
 }

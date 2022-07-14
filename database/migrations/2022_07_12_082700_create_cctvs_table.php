@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('cctvs', function (Blueprint $table) {
-            $table->longText('id');
+            $table->id();
+            $table->longText('relation_id');
             $table->string('name')->nullable();
             $table->string('location')->nullable();
             $table->text('liveViewUrl')->nullable();
