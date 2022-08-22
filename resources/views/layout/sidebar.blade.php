@@ -18,7 +18,7 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['candidate.*']) }}">
+            {{-- <li class="nav-item {{ active_class(['candidate.*']) }}">
                 <a href="{{ route('candidate.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Candidate</span>
@@ -41,7 +41,7 @@
                     <i class="link-icon" data-feather="file-text"></i>
                     <span class="link-title">Log</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>
