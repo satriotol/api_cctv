@@ -1,6 +1,7 @@
 @extends('layout.master')
 
 @push('plugin-styles')
+    <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
     <link href="https://vjs.zencdn.net/7.20.2/video-js.css" rel="stylesheet" />
 @endpush
 
@@ -20,13 +21,32 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Kecamatan</label>
-                                <input type="text" class="form-control" placeholder="Cari Kecamatan"
-                                    name="kecamatan_search" id="">
+                                <select class="js-example-basic-single form-select" name="kecamatan_search"
+                                    data-width="100%">
+                                    <option value="">Pilih Kecamatan</option>
+                                    @foreach ($kecamatans as $kecamatan)
+                                        <option value="{{ $kecamatan->id_kecamatan }}"
+                                            @if (old('kecamatan_search') == $kecamatan->id_kecamatan) selected @endif>
+                                            {{ $kecamatan->nama_kecamatan }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label>Kelurahan</label>
-                                <input type="text" class="form-control" placeholder="Cari Kelurahan"
-                                    name="kelurahan_search" id="">
+                                <select class="js-example-basic-single form-select" name="kelurahan_search"
+                                    data-width="100%">
+                                    <option value="">Pilih Kelurahan</option>
+                                    @foreach ($kelurahans as $kelurahan)
+                                        <option value="{{ $kelurahan->id_kelurahan }}"
+                                            @if (old('kelurahan_search') == $kelurahan->id_kelurahan) selected @endif>
+                                            {{ $kelurahan->nama_kelurahan }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="text-end">
+                                <input type="submit" value="Cari" class="btn btn-primary" id="">
                             </div>
                         </div>
                     </form>
@@ -48,15 +68,6 @@
                                             <a class="btn btn-warning" href="{{ route('cctv.edit', $cctv->id_lokasi) }}">
                                                 Edit
                                             </a>
-                                            <form action="{{ route('cctv.destroy', $cctv->id_lokasi) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"
-                                                    onclick="return confirm('Are you sure?')">
-                                                    Delete
-                                                </button>
-                                            </form>
                                         </td>
                                         <td>
                                             {{ $cctv->kelurahan->kecamatan->nama_kecamatan ?? '' }}
@@ -69,7 +80,8 @@
                                         </td>
                                         <td>
                                             @if ($cctv->cameraUrl)
-                                                <a href="{{ $cctv->cameraUrl }}" target="_blank">{{ $cctv->cameraUrl }}</a>
+                                                <a href="{{ $cctv->cameraUrl }}"
+                                                    target="_blank">{{ $cctv->cameraUrl }}</a>
                                             @else
                                                 Tidak Ada Url
                                             @endif
@@ -80,7 +92,7 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-center">
-                            {!! $cctvs->links() !!}
+                            {!! $cctvs->render() !!}
                         </div>
                     </div>
                 </div>
@@ -90,7 +102,9 @@
 @endsection
 
 @push('plugin-scripts')
+    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endpush
