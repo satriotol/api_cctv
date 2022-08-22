@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ResponseFormatter;
 use App\Models\Cctv;
+use App\Models\CctvLokasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -20,6 +21,10 @@ class CctvController extends Controller
         $rt = $request->input('rt');
         $rw = $request->input('rw');
         $limit = $request->input('limit');
+        $isLiveView = $request->input('isLiveView');
+        $isPing = $request->input('isPing');
+        $isLogin = $request->input('isLogin');
+        $isOpenvpn = $request->input('isOpenvpn');
 
         $data = Cctv::query();
 
@@ -43,6 +48,18 @@ class CctvController extends Controller
         }
         if ($rw) {
             $data->where('rw', 'like', '%' . $rw . '%');
+        }
+        if ($isLiveView) {
+            $data->where('isLiveView', $isLiveView);
+        }
+        if ($isPing) {
+            $data->where('isPing', $isPing);
+        }
+        if ($isLogin) {
+            $data->where('isLogin', $isLogin);
+        }
+        if ($isOpenvpn) {
+            $data->where('isOpenvpn', $isOpenvpn);
         }
 
         if ($limit) {
@@ -75,5 +92,19 @@ class CctvController extends Controller
             Cctv::updateOrCreate(['relation_id' => $record['relation_id'], 'liveViewUrl' => $record['liveViewUrl'],], $record);
         }
         return ResponseFormatter::success(Cctv::all()->count(), 'Sukses Menambah Data');
+    }
+    public function updateCctvLokasi()
+    {
+        $cctv_lokasis = CctvLokasi::query();
+        foreach ($cctv_lokasis->where('camera_id', !null)->get() as $cctv_lokasi) {
+            // dd($cctv_lokasi->camera_id);
+            $cctv = Cctv::where('relation_id', $cctv_lokasi->camera_id)->first();
+            $cctv_lokasi->update(
+                [
+                    'cameraUrl' => $cctv->liveViewUrl,
+                ]
+            );
+        }
+        return ResponseFormatter::success([], 'Sukses Menambah Data');
     }
 }

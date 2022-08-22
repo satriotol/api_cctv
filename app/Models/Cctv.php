@@ -12,4 +12,8 @@ class Cctv extends Model
     protected $fillable = [
         'relation_id','name','location','liveViewUrl','isPing','isLogin','isLiveView','isOpenVpn','rt','rw','kelurahan','kecamatan'
     ];
+    public function cctv_relation()
+    {
+        return $this->hasOne(Cctv::class, 'camera_id', 'relation_id');
+    }
 }

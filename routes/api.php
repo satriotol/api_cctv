@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('getCctv', [CctvController::class, 'index']);
 Route::get('cctv', [CctvController::class, 'store']);
+Route::get('updateCctvLokasi', [CctvController::class, 'updateCctvLokasi']);
