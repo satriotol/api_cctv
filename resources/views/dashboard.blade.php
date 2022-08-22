@@ -11,18 +11,18 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-header bg-success bg-gradient text-white">
-                            <h4 class="text-uppercase">Total Member</h4>
+                            <h4 class="text-uppercase">Total CCTV</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6 col-md-12 col-xl-5">
-                                    <h2 class="mx-2">1</h2>
-                                    {{-- <div class="d-flex align-items-baseline">
+                                    <h2 class="mx-2">{{$data['cctv_total']}}</h2>
+                                    <div class="d-flex align-items-baseline">
                                         <p class="text-success">
                                             <span>+3.3%</span>
                                             <i data-feather="arrow-up" class="icon-sm mb-1"></i>
                                         </p>
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -18,28 +18,16 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
-            {{-- <li class="nav-item {{ active_class(['candidate.*']) }}">
-                <a href="{{ route('candidate.index') }}" class="nav-link">
+            <li class="nav-item {{ active_class(['cctv.*']) }}">
+                <a href="{{ route('cctv.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
-                    <span class="link-title">Candidate</span>
+                    <span class="link-title">CCTV</span>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['voter.*']) }}">
+            {{-- <li class="nav-item {{ active_class(['voter.*']) }}">
                 <a href="{{ route('voter.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="user-check"></i>
                     <span class="link-title">Voter</span>
-                </a>
-            </li>
-            <li class="nav-item {{ active_class(['user.*']) }}">
-                <a href="{{ route('user.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="smile"></i>
-                    <span class="link-title">User</span>
-                </a>
-            </li>
-            <li class="nav-item {{ active_class(['log.*']) }}">
-                <a href="{{ route('log.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="file-text"></i>
-                    <span class="link-title">Log</span>
                 </a>
             </li> --}}
         </ul>
