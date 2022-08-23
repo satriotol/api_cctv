@@ -17,12 +17,6 @@
                             <div class="row">
                                 <div class="col-6 col-md-12 col-xl-5">
                                     <h2 class="mx-2">{{$data['cctv_total']}}</h2>
-                                    <div class="d-flex align-items-baseline">
-                                        <p class="text-success">
-                                            <span>+3.3%</span>
-                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                        </p>
-                                    </div>
                                 </div>
                             </div>
                         </div>

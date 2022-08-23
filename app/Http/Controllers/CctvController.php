@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cctv;
 use App\Models\CctvLokasi;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
@@ -18,17 +19,32 @@ class CctvController extends Controller
     {
         $kecamatan_search = $request->kecamatan_search;
         $kelurahan_search = $request->kelurahan_search;
-        $cctvs = CctvLokasi::orderBy('id_kecamatan', 'desc')->orderBy('id_kelurahan')->orderBy('rw', 'asc')->orderBy('rt', 'asc')
+        $url_search = $request->url_search;
+        $data_cctvs = Cctv::orderBy('kecamatan', 'desc')->orderBy('kelurahan')->orderBy('rw', 'asc')->orderBy('rt', 'asc')
             ->when($kelurahan_search, function ($q) use ($kelurahan_search) {
-                $q->where('id_kelurahan', $kelurahan_search);
+                $q->where('kelurahan', $kelurahan_search);
             })->when($kecamatan_search, function ($q) use ($kecamatan_search) {
-                $q->where('id_kecamatan', $kecamatan_search);
-            })->paginate(10);
+                $q->where('kecamatan', $kecamatan_search);
+            })->when($url_search, function ($q) use ($url_search) {
+                if ($url_search == 1) {
+                    $q->where('liveViewUrl', '!=', "");
+                } else {
+                    $q->where('liveViewUrl', '==', "");
+                }
+            });
+        $datas = [
+            'total_cctv' => $data_cctvs->get()->count(),
+        ];
+        $cctvs = $data_cctvs->paginate(10);
         $kecamatans = Kecamatan::orderBy('nama_kecamatan')->get(['id_kecamatan', 'nama_kecamatan']);
         $kelurahans = Kelurahan::orderBy('nama_kelurahan')->get(['id_kelurahan', 'nama_kelurahan']);
         $request->flash();
-        $cctvs->appends(['kelurahan_search' => $kelurahan_search]);
-        return view('pages.cctv.index', compact('cctvs', 'kelurahans', 'kecamatans'));
+        $cctvs->appends([
+            'kelurahan_search' => $kelurahan_search,
+            'kecamatan_search' => $kecamatan_search,
+            'url_search' => $url_search,
+        ]);
+        return view('pages.cctv.index', compact('cctvs', 'kelurahans', 'kecamatans', 'datas'));
     }
 
     /**

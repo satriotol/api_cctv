@@ -95,13 +95,18 @@ class CctvController extends Controller
     }
     public function updateCctvLokasi()
     {
-        $cctv_lokasis = CctvLokasi::query();
-        foreach ($cctv_lokasis->where('camera_id', !null)->get() as $cctv_lokasi) {
-            // dd($cctv_lokasi->camera_id);
-            $cctv = Cctv::where('relation_id', $cctv_lokasi->camera_id)->first();
+        set_time_limit(0);
+        $cctv_lokasis = CctvLokasi::with('kelurahan')->get();
+        foreach ($cctv_lokasis as $cctv_lokasi) {
+            if ($cctv_lokasi->kelurahan) {
+                # code...
+                $cctv = Cctv::where('rt', $cctv_lokasi->rt)->where('rw', $cctv_lokasi->rw)->where('kelurahan', $cctv_lokasi->kelurahan->nama_kelurahan)->first();
+            } else {
+                $cctv = Cctv::where('relation_id', $cctv_lokasi->camera_id)->first();
+            }
             $cctv_lokasi->update(
                 [
-                    'cameraUrl' => $cctv->liveViewUrl,
+                    'cameraUrl' => $cctv->liveViewUrl ?? '',
                 ]
             );
         }

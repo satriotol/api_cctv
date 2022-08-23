@@ -1,7 +1,6 @@
 <nav class="sidebar">
     <div class="sidebar-header">
-        <a href="#" class="sidebar-brand">
-            VOTING</span>
+        <a href="#" class="sidebar-brand">CCTV</span>
         </a>
         <div class="sidebar-toggler not-active">
             <span></span>

@@ -10,7 +10,7 @@ class Cctv extends Model
     use HasFactory;
 
     protected $fillable = [
-        'relation_id', 'name', 'location', 'liveViewUrl', 'isPing', 'isLogin', 'isLiveView', 'isOpenVpn', 'rt', 'rw', 'kelurahan', 'kecamatan'
+        'relation_id', 'name', 'location', 'liveViewUrl', 'isPing', 'isLogin', 'isLiveView', 'isOpenVpn', 'rt', 'rw', 'kelurahan', 'kecamatan', 'status'
     ];
     public function cctv_relation()
     {
