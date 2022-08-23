@@ -2,7 +2,7 @@
 
 @push('plugin-styles')
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
-    <link href="https://vjs.zencdn.net/7.20.2/video-js.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.10.2/alt/video-js-cdn.css" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -148,12 +148,11 @@
                                             {{ $cctv->rw }}/{{ $cctv->rt }}
                                         </td>
                                         <td>
-                                            @if ($cctv->liveViewUrl)
-                                                <a href="{{ $cctv->liveViewUrl }}"
-                                                    target="_blank">{{ $cctv->liveViewUrl }}</a>
-                                            @else
-                                                Tidak Ada Url
-                                            @endif
+                                            <video id="video{{ $cctv->id }}" class="video-js vjs-default-skin"
+                                                preload="none" crossorigin="true" controls width="640" height="268"
+                                                autoplay="true" controls>
+                                                <source src="{{ $cctv->liveViewUrl }}" type='application/x-mpegURL'>
+                                            </video>
                                         </td>
 
                                     </tr>
@@ -172,8 +171,18 @@
 
 @push('plugin-scripts')
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.10.2/video.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/3.0.2/videojs-contrib-hls.js"></script>
 @endpush
 
 @push('custom-scripts')
     <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script>
+        @foreach ($cctvs as $cctv)
+            $(document).ready(function() {
+                var ply = videojs("video{{ $cctv->id }}");
+                ply.play();
+            });
+        @endforeach
+    </script>
 @endpush

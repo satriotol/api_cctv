@@ -26,16 +26,17 @@ class CctvController extends Controller
             })->when($kecamatan_search, function ($q) use ($kecamatan_search) {
                 $q->where('kecamatan', $kecamatan_search);
             })->when($status_search, function ($q) use ($status_search) {
-                if ($status_search == '1') {
-                    $q->where('status', '1');
-                } else if ($status_search == '0') {
-                    $q->where('status', '0');
+                if ($status_search == 0) {
+                    $q->where('status', '=', 0);
+                }
+                if ($status_search == 1) {
+                    $q->where('status', '=', 1);
                 }
             });
         $datas = [
             'total_cctv' => $data_cctvs->get()->count(),
-            // 'total_cctv_mati' => $data_cctvs->where('status', 0)->get()->count(),
             // 'total_cctv_hidup' => $data_cctvs->where('status', 1)->get()->count(),
+            // 'total_cctv_mati' => $data_cctvs->where('status', 0)->get()->count(),
         ];
         $cctvs = $data_cctvs->paginate(10);
         $kecamatans = Kecamatan::orderBy('nama_kecamatan')->get(['id_kecamatan', 'nama_kecamatan']);
