@@ -61,13 +61,13 @@
                             </div>
                             <div class="col-md-4">
                                 <label>Url</label>
-                                <select class="js-example-basic-single form-select" name="url_search" data-width="100%">
+                                <select class="js-example-basic-single form-select" name="status_search" data-width="100%">
                                     <option value="">Pilih Status</option>
-                                    <option value="1" @if (old('url_search') == 1) selected @endif>
-                                        Ada
+                                    <option value="1" @if (old('status_search') == '1') selected @endif>
+                                        Hidup
                                     </option>
-                                    <option value="2" @if (old('url_search') == 2) selected @endif>
-                                        Tidak
+                                    <option value="0" @if (old('status_search') == '0') selected @endif>
+                                        Mati
                                     </option>
                                 </select>
                             </div>
@@ -81,6 +81,7 @@
                             <thead>
                                 <tr>
                                     <th>Action</th>
+                                    <th>Status</th>
                                     <th>Kecamatan</th>
                                     <th>Kelurahan</th>
                                     <th>RW/RT</th>
@@ -91,9 +92,51 @@
                                 @foreach ($cctvs as $cctv)
                                     <tr>
                                         <td>
-                                            <a class="btn btn-warning" href="{{ route('cctv.edit', $cctv->id) }}">
+                                            <button class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal{{ $cctv->id }}">
                                                 Edit
-                                            </a>
+                                            </button>
+                                            <div class="modal fade" id="exampleModal{{ $cctv->id }}" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                {{ $cctv->name }}</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="btn-close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{ route('cctv.update', $cctv->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="form-group">
+                                                                    <label>Status</label>
+                                                                    <select name="status" class="form-control" required>
+                                                                        <option value="">Pilih Status</option>
+                                                                        <option value="1"
+                                                                            @if ($cctv->status == '1') selected @endif>
+                                                                            Hidup</option>
+                                                                        <option value="0"
+                                                                            @if ($cctv->status == '0') selected @endif>
+                                                                            Mati</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="text-end mt-2">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button class="btn btn-primary" type="submit">Save
+                                                                        changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ $cctv->status ?? 'Belum Terdata' }}
                                         </td>
                                         <td>
                                             {{ $cctv->kecamatan ?? '' }}

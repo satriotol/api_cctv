@@ -19,21 +19,23 @@ class CctvController extends Controller
     {
         $kecamatan_search = $request->kecamatan_search;
         $kelurahan_search = $request->kelurahan_search;
-        $url_search = $request->url_search;
+        $status_search = $request->status_search;
         $data_cctvs = Cctv::orderBy('kecamatan', 'desc')->orderBy('kelurahan')->orderBy('rw', 'asc')->orderBy('rt', 'asc')
             ->when($kelurahan_search, function ($q) use ($kelurahan_search) {
                 $q->where('kelurahan', $kelurahan_search);
             })->when($kecamatan_search, function ($q) use ($kecamatan_search) {
                 $q->where('kecamatan', $kecamatan_search);
-            })->when($url_search, function ($q) use ($url_search) {
-                if ($url_search == 1) {
-                    $q->where('liveViewUrl', '!=', "");
-                } else {
-                    $q->where('liveViewUrl', '==', "");
+            })->when($status_search, function ($q) use ($status_search) {
+                if ($status_search == '1') {
+                    $q->where('status', '1');
+                } else if ($status_search == '0') {
+                    $q->where('status', '0');
                 }
             });
         $datas = [
             'total_cctv' => $data_cctvs->get()->count(),
+            // 'total_cctv_mati' => $data_cctvs->where('status', 0)->get()->count(),
+            // 'total_cctv_hidup' => $data_cctvs->where('status', 1)->get()->count(),
         ];
         $cctvs = $data_cctvs->paginate(10);
         $kecamatans = Kecamatan::orderBy('nama_kecamatan')->get(['id_kecamatan', 'nama_kecamatan']);
@@ -42,7 +44,7 @@ class CctvController extends Controller
         $cctvs->appends([
             'kelurahan_search' => $kelurahan_search,
             'kecamatan_search' => $kecamatan_search,
-            'url_search' => $url_search,
+            'status_search' => $status_search,
         ]);
         return view('pages.cctv.index', compact('cctvs', 'kelurahans', 'kecamatans', 'datas'));
     }
@@ -97,9 +99,14 @@ class CctvController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cctv $cctv)
     {
-        //
+        $data = $request->validate([
+            'status' => 'required',
+        ]);
+
+        $cctv->update($data);
+        return back();
     }
 
     /**
