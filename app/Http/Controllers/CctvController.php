@@ -34,8 +34,8 @@ class CctvController extends Controller
                 }
             });
         $datas = [
-            'total_cctv' => $data_cctvs->get()->count(),
-            // 'total_cctv_hidup' => $data_cctvs->where('status', 1)->get()->count(),
+            'total_cctv' => $data_cctvs->count(),
+            // 'total_cctv_hidup' => $data_cctvs->where('status', 1)->count(),
             // 'total_cctv_mati' => $data_cctvs->where('status', 0)->get()->count(),
         ];
         $cctvs = $data_cctvs->paginate(10);

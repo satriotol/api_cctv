@@ -12,6 +12,8 @@ class DashboardController extends Controller
     {
         $data = [
             'cctv_total' => Cctv::all()->count(),
+            'cctv_total_hidup' => Cctv::where('status', 1)->count(),
+            'cctv_total_mati' => Cctv::where('status', 0)->count(),
         ];
         return view('dashboard', compact('data'));
     }
