@@ -63,10 +63,10 @@
                                 <label>Url</label>
                                 <select class="js-example-basic-single form-select" name="status_search" data-width="100%">
                                     <option value="">Pilih Status</option>
-                                    <option value="1" @if (old('status_search') == '1') selected @endif>
+                                    <option value="HIDUP" @if (old('status_search') == 'HIDUP') selected @endif>
                                         Hidup
                                     </option>
-                                    <option value="0" @if (old('status_search') == '0') selected @endif>
+                                    <option value="MATI" @if (old('status_search') == 'MATI') selected @endif>
                                         Mati
                                     </option>
                                 </select>
@@ -115,11 +115,11 @@
                                                                     <label>Status</label>
                                                                     <select name="status" class="form-control" required>
                                                                         <option value="">Pilih Status</option>
-                                                                        <option value="1"
-                                                                            @if ($cctv->status == '1') selected @endif>
+                                                                        <option value="HIDUP"
+                                                                            @if ($cctv->status == 'HIDUP') selected @endif>
                                                                             Hidup</option>
-                                                                        <option value="0"
-                                                                            @if ($cctv->status == '0') selected @endif>
+                                                                        <option value="MATI"
+                                                                            @if ($cctv->status == 'MATI') selected @endif>
                                                                             Mati</option>
                                                                     </select>
                                                                 </div>

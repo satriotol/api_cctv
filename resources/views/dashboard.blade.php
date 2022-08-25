@@ -25,7 +25,7 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-header bg-primary bg-gradient text-white">
-                            <h4 class="text-uppercase">Voting Count</h4>
+                            <h4 class="text-uppercase">TOTAL CCTV</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -40,7 +40,7 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-header bg-danger bg-gradient text-white">
-                            <h4 class="text-uppercase">Belum Voting</h4>
+                            <h4 class="text-uppercase">CCTV MATI</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
