@@ -7,6 +7,7 @@ use App\Http\Controllers\ResponseFormatter;
 use App\Models\Cctv;
 use App\Models\CctvLokasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class CctvController extends Controller
@@ -96,13 +97,13 @@ class CctvController extends Controller
     public function updateCctvLokasi()
     {
         set_time_limit(0);
-        $cctv_lokasis = CctvLokasi::with('kelurahan')->get();
+        $cctv_lokasis = CctvLokasi::all();
         foreach ($cctv_lokasis as $cctv_lokasi) {
-            if ($cctv_lokasi->kelurahan) {
-                # code...
-                $cctv = Cctv::where('rt', $cctv_lokasi->rt)->where('rw', $cctv_lokasi->rw)->where('kelurahan', $cctv_lokasi->kelurahan->nama_kelurahan)->first();
-            } else {
+            if ($cctv_lokasi->camera_id != '') {
                 $cctv = Cctv::where('relation_id', $cctv_lokasi->camera_id)->first();
+            } else {
+                $cctv = Cctv::where('kelurahan', $cctv_lokasi->kelurahan->nama_kelurahan)->where('rt', $cctv_lokasi->rt)
+                    ->where('rw', $cctv_lokasi->rw)->first();
             }
             $cctv_lokasi->update(
                 [
@@ -110,6 +111,6 @@ class CctvController extends Controller
                 ]
             );
         }
-        return ResponseFormatter::success([], 'Sukses Menambah Data');
+        return ResponseFormatter::success($cctv_lokasis, 'Sukses Menambah Data');
     }
 }

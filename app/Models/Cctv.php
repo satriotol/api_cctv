@@ -17,6 +17,6 @@ class Cctv extends Model
     ];
     public function cctv_relation()
     {
-        return $this->hasOne(Cctv::class, 'camera_id', 'relation_id');
+        return $this->belongsTo(CctvLokasi::class, 'camera_id', 'relation_id');
     }
 }

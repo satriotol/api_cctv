@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CctvController;
+use App\Http\Controllers\CctvLokasiController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('cctv', CctvController::class);
-    // Route::resource('user', UserController::class);
-    // Route::resource('candidate', CandidateController::class);
-    // Route::resource('voter', VoterController::class);
-    // Route::resource('log', LogController::class);
+    Route::resource('cctv_lokasi', CctvLokasiController::class);
 });
 
 

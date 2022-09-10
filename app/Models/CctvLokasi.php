@@ -11,11 +11,11 @@ class CctvLokasi extends Model
 
     protected $table = 'cctv_lokasi';
     public $timestamps = false;
-    protected $fillable = ['cameraUrl', 'id_kelurahan', 'id_kecamatan'];
+    protected $fillable = ['cameraUrl', 'id_kelurahan', 'id_kecamatan','camera_id'];
     protected $primaryKey = 'id_lokasi';
     public function cctv()
     {
-        return $this->hasOne(Cctv::class, 'relation_id', 'camera_id');
+        return $this->belongsTo(Cctv::class, 'camera_id', 'relation_id');
     }
     public function kelurahan()
     {

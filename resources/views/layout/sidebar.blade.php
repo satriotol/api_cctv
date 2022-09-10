@@ -23,6 +23,12 @@
                     <span class="link-title">CCTV</span>
                 </a>
             </li>
+            <li class="nav-item {{ active_class(['cctv_lokasi.*']) }}">
+                <a href="{{ route('cctv_lokasi.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">CCTV LOKASI</span>
+                </a> 
+            </li>
             {{-- <li class="nav-item {{ active_class(['voter.*']) }}">
                 <a href="{{ route('voter.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="user-check"></i>
