@@ -111,6 +111,6 @@ class CctvController extends Controller
                 ]
             );
         }
-        return ResponseFormatter::success($cctv_lokasis, 'Sukses Menambah Data');
+        return ResponseFormatter::success('', 'Sukses Menambah Data');
     }
 }

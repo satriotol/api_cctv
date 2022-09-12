@@ -28,6 +28,8 @@
                                 <tr>
                                     <th>Token</th>
                                     <th>Used</th>
+                                    <th>Created At</th>
+                                    <th>Last Used</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -40,6 +42,12 @@
                                         </td>
                                         <td>
                                             {{ $accessToken->used }}
+                                        </td>
+                                        <td>
+                                            {{ $accessToken->created_at }}
+                                        </td>
+                                        <td>
+                                            {{ $accessToken->updated_at }}
                                         </td>
                                         <td>
                                             <button class="btn btn-danger">
