@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessTokenController;
 use App\Http\Controllers\CctvController;
 use App\Http\Controllers\CctvLokasiController;
 use App\Http\Controllers\DashboardController;
@@ -20,6 +21,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('cctv', CctvController::class);
     Route::resource('cctv_lokasi', CctvLokasiController::class);
+    Route::resource('accessToken', AccessTokenController::class);
 });
 
 

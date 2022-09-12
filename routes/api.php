@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('getCctv', [CctvController::class, 'index']);
-Route::get('cctv', [CctvController::class, 'store']);
-Route::get('updateCctvLokasi', [CctvController::class, 'updateCctvLokasi']);
+Route::middleware('checkHeader')->group(function () {
+    Route::get('getCctv', [CctvController::class, 'index']);
+    Route::get('cctv', [CctvController::class, 'store']);
+    Route::get('updateCctvLokasi', [CctvController::class, 'updateCctvLokasi']);
+});

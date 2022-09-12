@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CctvLokasi;
+use App\Models\AccessToken;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
-class CctvLokasiController extends Controller
+class AccessTokenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +15,8 @@ class CctvLokasiController extends Controller
      */
     public function index()
     {
+        $accessTokens = AccessToken::paginate();
+        return view('pages.accessToken.index', compact('accessTokens'));
     }
 
     /**
@@ -34,16 +37,19 @@ class CctvLokasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $test = AccessToken::create([
+            'token' => Str::random(20),
+        ]);
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\AccessToken  $accessToken
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(AccessToken $accessToken)
     {
         //
     }
@@ -51,10 +57,10 @@ class CctvLokasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\AccessToken  $accessToken
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(AccessToken $accessToken)
     {
         //
     }
@@ -63,10 +69,10 @@ class CctvLokasiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\AccessToken  $accessToken
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, AccessToken $accessToken)
     {
         //
     }
@@ -74,10 +80,10 @@ class CctvLokasiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\AccessToken  $accessToken
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(AccessToken $accessToken)
     {
         //
     }

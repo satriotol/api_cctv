@@ -29,6 +29,12 @@
                     <span class="link-title">CCTV LOKASI</span>
                 </a> 
             </li>
+            <li class="nav-item {{ active_class(['accessToken.*']) }}">
+                <a href="{{ route('accessToken.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Token</span>
+                </a> 
+            </li>
             {{-- <li class="nav-item {{ active_class(['voter.*']) }}">
                 <a href="{{ route('voter.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="user-check"></i>
