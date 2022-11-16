@@ -26,11 +26,11 @@ class CctvController extends Controller
             })->when($kecamatan_search, function ($q) use ($kecamatan_search) {
                 $q->where('kecamatan', $kecamatan_search);
             })->when($status_search, function ($q) use ($status_search) {
-                if ($status_search == 'HIDUP') {
-                    $q->where('status', 'HIDUP');
+                if ($status_search == '1') {
+                    $q->where('status', '1');
                 }
-                if ($status_search == 'MATI') {
-                    $q->where('status', 'MATI');
+                if ($status_search == '1') {
+                    $q->where('status', '1');
                 }
             });
         $datas = [

@@ -131,11 +131,38 @@ class CctvController extends Controller
                     ]);
                 }
                 DB::commit();
-            } catch (\Throwable $th) {
+            } catch (\Exception $e) {
                 DB::rollBack();
-                return $th;
+                return $e->getMessage();
             }
         }
-        // return 'selesai';
+        return 'done';
+    }
+    public function cctvStatus(Request $request)
+    {
+        $cctvs = Cctv::where('liveViewUrl', '!=', 'https://streaming.cctvsemarang.katalisindonesia.comnull')->where('liveViewUrl', '!=', '');
+        if ($request->status) {
+            $cctvs->where('STATUS', $request->status);
+        }
+        foreach ($cctvs->get() as $cctv) {
+            $response = Http::get($cctv->liveViewUrl);
+            DB::beginTransaction();
+            try {
+                if ($response->status() == 200 && Str::contains($response, 'YES') == 1) {
+                    $cctv->update([
+                        'status' => 1
+                    ]);
+                } else {
+                    $cctv->update([
+                        'status' => 2
+                    ]);
+                }
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return $e->getMessage();
+            }
+        }
+        return 'done';
     }
 }

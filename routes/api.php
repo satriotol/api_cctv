@@ -24,4 +24,5 @@ Route::middleware('checkHeader')->group(function () {
     Route::get('cctv', [CctvController::class, 'store']);
     Route::get('updateCctvLokasi', [CctvController::class, 'updateCctvLokasi']);
     Route::get('cctvLokasiStatus', [CctvController::class, 'cctvLokasiStatus']);
+    Route::get('cctvStatus', [CctvController::class, 'cctvStatus']);
 });
