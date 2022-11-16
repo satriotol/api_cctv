@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CctvController;
+use App\Jobs\CheckCctvJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,5 @@ Route::middleware('checkHeader')->group(function () {
     Route::get('getCctv', [CctvController::class, 'index']);
     Route::get('cctv', [CctvController::class, 'store']);
     Route::get('updateCctvLokasi', [CctvController::class, 'updateCctvLokasi']);
+    Route::get('cctvLokasiStatus', [CctvController::class, 'cctvLokasiStatus']);
 });

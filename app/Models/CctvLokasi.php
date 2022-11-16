@@ -11,7 +11,7 @@ class CctvLokasi extends Model
 
     protected $table = 'cctv_lokasi';
     public $timestamps = false;
-    protected $fillable = ['cameraUrl', 'id_kelurahan', 'id_kecamatan','camera_id'];
+    protected $fillable = ['cameraUrl', 'id_kelurahan', 'id_kecamatan', 'camera_id', 'status_cctv'];
     protected $primaryKey = 'id_lokasi';
     public function cctv()
     {

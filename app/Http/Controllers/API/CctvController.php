@@ -9,6 +9,7 @@ use App\Models\CctvLokasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class CctvController extends Controller
 {
@@ -112,5 +113,29 @@ class CctvController extends Controller
             );
         }
         return ResponseFormatter::success('', 'Sukses Menambah Data');
+    }
+    public function cctvLokasiStatus()
+    {
+        $cctvs = CctvLokasi::where('cameraUrl', '!=', 'https://streaming.cctvsemarang.katalisindonesia.comnull')->where('cameraUrl', '!=', '')->get();
+        foreach ($cctvs as $cctv) {
+            $response = Http::get($cctv->cameraUrl);
+            DB::beginTransaction();
+            try {
+                if ($response->status() == 200 && Str::contains($response, 'YES') == 1) {
+                    $cctv->update([
+                        'status_cctv' => 1
+                    ]);
+                } else {
+                    $cctv->update([
+                        'status_cctv' => 2
+                    ]);
+                }
+                DB::commit();
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                return $th;
+            }
+        }
+        // return 'selesai';
     }
 }
