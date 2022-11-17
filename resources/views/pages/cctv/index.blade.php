@@ -60,13 +60,13 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label>Url</label>
+                                <label>Status</label>
                                 <select class="js-example-basic-single form-select" name="status_search" data-width="100%">
                                     <option value="">Pilih Status</option>
-                                    <option value="HIDUP" @if (old('status_search') == 'HIDUP') selected @endif>
+                                    <option value="1" @if (old('status_search') == '1') selected @endif>
                                         Hidup
                                     </option>
-                                    <option value="MATI" @if (old('status_search') == 'MATI') selected @endif>
+                                    <option value="2" @if (old('status_search') == '2') selected @endif>
                                         Mati
                                     </option>
                                 </select>
@@ -80,7 +80,9 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Action</th>
+                                    <th>Nama</th>
                                     <th>Status</th>
                                     <th>Kecamatan</th>
                                     <th>Kelurahan</th>
@@ -91,6 +93,9 @@
                             <tbody>
                                 @foreach ($cctvs as $cctv)
                                     <tr>
+                                        <td>
+                                            {{ $cctv->id }}
+                                        </td>
                                         <td>
                                             <button class="btn btn-warning" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal{{ $cctv->id }}">
@@ -115,11 +120,11 @@
                                                                     <label>Status</label>
                                                                     <select name="status" class="form-control" required>
                                                                         <option value="">Pilih Status</option>
-                                                                        <option value="HIDUP"
-                                                                            @if ($cctv->status == 'HIDUP') selected @endif>
+                                                                        <option value="1"
+                                                                            @if ($cctv->status == '1') selected @endif>
                                                                             Hidup</option>
-                                                                        <option value="MATI"
-                                                                            @if ($cctv->status == 'MATI') selected @endif>
+                                                                        <option value="2"
+                                                                            @if ($cctv->status == '2') selected @endif>
                                                                             Mati</option>
                                                                     </select>
                                                                 </div>
@@ -136,16 +141,25 @@
                                             </div>
                                         </td>
                                         <td>
+                                            {{ $cctv->name }}
+                                        </td>
+                                        <td>
                                             {{ $cctv->status ?? 'Belum Terdata' }}
                                         </td>
                                         <td>
                                             {{ $cctv->kecamatan ?? '' }}
                                         </td>
+
                                         <td>
                                             {{ $cctv->kelurahan ?? '' }}
                                         </td>
                                         <td>
                                             {{ $cctv->rw }}/{{ $cctv->rt }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ $cctv->liveViewUrl }}" target="_blank">
+                                                {{ $cctv->liveViewUrl }}
+                                            </a>
                                         </td>
                                         <td>
                                             <video id="video{{ $cctv->id }}" class="video-js vjs-default-skin"
